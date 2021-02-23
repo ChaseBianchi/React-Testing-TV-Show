@@ -9,3 +9,14 @@ import showData from '../data'
 test('render without errors', ()=>{
     render(<Episodes episodes={[]}/>)
 })
+
+test('render with episodes', ()=>{
+    const {queryAllByTestId, rerender} = render(<Episodes episodes={[]}/>)
+
+    const episodes = queryAllByTestId('episode')
+    expect(episodes).toHaveLength(0)
+
+    rerender(<Episodes episodes={showData.data._embedded.episodes}/>)
+    const rerenderEpisodes = queryAllByTestId('episode')
+    expect(rerenderEpisodes).toHaveLength(3);
+})
